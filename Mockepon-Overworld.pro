@@ -16,7 +16,8 @@ SOURCES += \
         gfxstore.cpp \
         main.cpp \
         pugixml.cpp \
-        window.cpp
+        window.cpp \
+        xmlconvenience.cpp
 
 HEADERS += \
     SDL-globals.hpp \
@@ -24,4 +25,5 @@ HEADERS += \
     gfxstore.hpp \
     pugiconfig.hpp \
     pugixml.hpp \
-    window.hpp
+    window.hpp \
+    xmlconvenience.hpp

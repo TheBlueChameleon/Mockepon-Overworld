@@ -30,7 +30,7 @@ GfxStore::~GfxStore() {reset();}
 // ========================================================================== //
 // getters
 
-const Window & GfxStore::getWin() const {return win;}
+Window & GfxStore::getWin() const {return win;}
 // .......................................................................... //
 int GfxStore::getSize() const {return textures.size();}
 // .......................................................................... //
@@ -39,7 +39,7 @@ const std::string & GfxStore::getFilename(const int ID) const {
     return filenames[ID];
 }
 // .......................................................................... //
-const SDL_Texture * GfxStore::getTexture(const int ID) const {
+SDL_Texture * GfxStore::getTexture(const int ID) const {
     CHECK_GFX_INDEX(ID);
     return textures[ID];
 }

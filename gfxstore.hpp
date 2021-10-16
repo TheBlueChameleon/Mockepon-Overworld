@@ -42,10 +42,10 @@ public:
     // ---------------------------------------------------------------------- //
     // getters
 
-    const Window &      getWin() const;
+          Window &      getWin() const;
     int                 getSize() const;
     const std::string & getFilename(const int ID) const;
-    const SDL_Texture * getTexture(const int ID) const;
+          SDL_Texture * getTexture(const int ID) const;
 
     std::pair<int, int> getImageDimensions(const int ID);
 

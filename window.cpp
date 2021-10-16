@@ -64,15 +64,15 @@ void Window::print(const char * text,
 // ========================================================================== //
 // interaction
 
+void Window::setCallback(const std::function<bool (SDL_Event &)> & newCallback) {callback = newCallback;}
+// .......................................................................... //
 void Window::setIdleFunc(const std::function<void (void *)> & newIdleFunc) {idleFunc = newIdleFunc;}
 // .......................................................................... //
 void Window::setIdleData(void * newIdleData) {idleData = newIdleData;}
-// .......................................................................... //
-void Window::setCallback(const std::function<bool (SDL_Event &)> & newCallback) {callback = newCallback;}
 
 // -------------------------------------------------------------------------- //
 
-void Window::mainloop(bool autoClear, bool onlyCallback) {
+void Window::mainloop(int fps, bool autoClear, bool onlyCallback) {
     bool close = false;
     bool hasCallback = callback ? true : false;
 
@@ -96,7 +96,7 @@ void Window::mainloop(bool autoClear, bool onlyCallback) {
         if (idleFunc) {idleFunc(idleData);}
         SDL_RenderPresent(win_renderer);
 
-        SDL_Delay(1000 / 30);
+        SDL_Delay(1000 / fps);
     }
 
 }

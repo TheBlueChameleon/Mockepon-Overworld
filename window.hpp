@@ -62,16 +62,18 @@ public:
                SDL_Color color = color_white,
                TTF_Font * font = nullptr);
 
+    void update();
+
     // ---------------------------------------------------------------------- //
     // interactions
 
     void setCallback(const std::function<bool (SDL_Event &)> & newCallback);
-    void setIdleFunc(const std::function<void (void *)> & newIdleFunc);
 
-    void mainloop(bool autoClear = false, bool onlyCallback = false);
+    void setIdleFunc(const std::function<void (void *)> & newIdleFunc);
     void setIdleData(void * newIdleData);
 
-    void update();
+    void mainloop(int fps = 30, bool autoClear = false, bool onlyCallback = false);
+
 };
 
 #endif // WINDOW_HPP
