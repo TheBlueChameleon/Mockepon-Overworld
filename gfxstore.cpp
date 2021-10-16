@@ -33,7 +33,7 @@ GfxStore::~GfxStore() {reset();}
 Window & GfxStore::getWin() const {return win;}
 // .......................................................................... //
 int GfxStore::getSize() const {return textures.size();}
-// .......................................................................... //
+// -------------------------------------------------------------------------- //
 const std::string & GfxStore::getFilename(const int ID) const {
     CHECK_GFX_INDEX(ID);
     return filenames[ID];
@@ -52,12 +52,15 @@ std::pair<int, int> GfxStore::getImageDimensions(const int ID) {
 // ========================================================================== //
 // setters and changers
 
-int GfxStore::load(const std::string & filename) {
+void GfxStore::reset() {
+    for (auto & tex : textures) {SDL_DestroyTexture(tex);}
+}
+// .......................................................................... //
+int GfxStore::addFrame(const std::string & filename) {
     auto searchIterator = std::find( filenames.begin(), filenames.end(), filename );
     if (searchIterator != filenames.end() ) {
         return std::distance(filenames.begin(), searchIterator);
     }
-
 
     SDL_Surface* loadedSurface = IMG_Load( filename.c_str() );
     if( loadedSurface == NULL ) {
@@ -81,10 +84,6 @@ int GfxStore::load(const std::string & filename) {
 
     return textures.size() - 1;
 }
-// .......................................................................... //
-void GfxStore::reset() {
-    for (auto & tex : textures) {SDL_DestroyTexture(tex);}
-}
 
 // ========================================================================== //
 // display
@@ -103,6 +102,3 @@ void GfxStore::show(int ID, int x, int y) {
     win.mainloop();
 }
 // .......................................................................... //
-
-
-// -------------------------------------------------------------------------- //

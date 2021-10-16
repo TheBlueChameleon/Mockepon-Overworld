@@ -20,7 +20,7 @@
 
 class Animation {
 private:
-    GfxStore & store;
+    GfxStore & gfxStore;
 
     std::vector<int> frames;
     unsigned int currentFrame = 0;
@@ -31,8 +31,7 @@ public:
     // ---------------------------------------------------------------------- //
     // CTor, DTor
 
-    Animation(GfxStore & store);
-    Animation(GfxStore & store, const std::string & xmlFile);
+    Animation(GfxStore & gfxStore);
 
     // ---------------------------------------------------------------------- //
     // getters
@@ -46,10 +45,11 @@ public:
 
     void reset();
 
-    void addFrame(int ID);
-    void addFrame(const std::string & filename);
+    void addFrame (int ID);
+    void addFrame (const std::string & filename);
 
-    void load (const std::string & xmlFile);
+    void addFrames(const std::vector<int> & IDs);
+    void addFrames(const std::vector<std::string> & filenames);
 
     void advanceFrame();
 

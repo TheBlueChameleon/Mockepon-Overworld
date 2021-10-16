@@ -23,7 +23,6 @@
 // ========================================================================== //
 // Class
 
-
 class GfxStore {
 private:
     std::vector<std::string  >       filenames;
@@ -52,8 +51,9 @@ public:
     // ---------------------------------------------------------------------- //
     // setters and changers
 
-    int load (const std::string & filename);        // returns index of loaded image in store. Prevents double loading
     void reset();
+
+    int addFrame (const std::string & filename);        // returns index of loaded image in store. Prevents double loading
 
     // ---------------------------------------------------------------------- //
     // display
