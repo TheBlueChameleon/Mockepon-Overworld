@@ -3,6 +3,7 @@
 
 // STL
 #include <cstdlib>
+#include <iostream>
 
 // SDL
 
@@ -12,6 +13,24 @@
 // ========================================================================== //
 // proc
 
+void initAll () {
+    if ( SDL_Init(SDL_INIT_EVERYTHING) ) {
+        std::cerr << "error initializing SDL: " << SDL_GetError() << std::endl;
+        std::exit(EXIT_FAILURE);
+    } else {
+        std::atexit(SDL_Quit);
+    }
+
+    if (TTF_Init() ) {
+        std::cerr << "error initializing SDL: " << SDL_GetError() << std::endl;
+        std::exit(EXIT_FAILURE);
+    } else {
+        std::atexit(TTF_Quit);
+    }
+
+    initGlobals();
+}
+// -------------------------------------------------------------------------- //
 void initGlobals() {
     font_fixedSize= TTF_OpenFont("../font/FreeMono.ttf", 15);
 

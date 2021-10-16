@@ -9,14 +9,11 @@
 #include "window.hpp"
 
 // ========================================================================== //
-// Class
-
-// -------------------------------------------------------------------------- //
 // CTor, DTor
 
 Window::Window(const char *title, int width, int height) {
-    this->width = width;
-    this->height = height;
+    win_width  = width;
+    win_height = height;
 
     win = SDL_CreateWindow(title,
                            SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -26,31 +23,31 @@ Window::Window(const char *title, int width, int height) {
     Uint32 render_flags = SDL_RENDERER_ACCELERATED;
     win_renderer = SDL_CreateRenderer(win, -1, render_flags);
 }
-
+// .......................................................................... //
 Window::~Window() {
     SDL_DestroyRenderer(win_renderer);
     SDL_DestroyWindow(win);
 }
 
-// -------------------------------------------------------------------------- //
-// populate
+// ========================================================================== //
+// getters
+
+SDL_Renderer * Window::getRenderer() const {return win_renderer;}
+
+// ========================================================================== //
+// draw
 
 void Window::print(const char * text,
                    const int x, const int y,
                    int width, int height,
-                   SDL_Color * color,
+                   SDL_Color color,
                    TTF_Font * font
 ) {
     if (!text) {return;}
 
-    SDL_Color white = {255, 255, 255, 0};
-
-    char font_path[] = "../font/FreeMono.ttf";
-
     if ( !font ) {font = font_fixedSize;}
-    if ( !color ) {color = &white; }
 
-    SDL_Surface * surfaceMessage = TTF_RenderText_Solid(font, text, *color);
+    SDL_Surface * surfaceMessage = TTF_RenderText_Solid(font, text, color);
     SDL_Texture * msg = SDL_CreateTextureFromSurface(win_renderer, surfaceMessage);
 
     if (width  == -1) {width = surfaceMessage->w;}
@@ -64,7 +61,7 @@ void Window::print(const char * text,
     SDL_DestroyTexture(msg);
 }
 
-// -------------------------------------------------------------------------- //
+// ========================================================================== //
 // interaction
 
 void Window::setIdleFunc(const std::function<void (void *)> & newIdleFunc) {idleFunc = newIdleFunc;}
@@ -73,9 +70,9 @@ void Window::setIdleData(void * newIdleData) {idleData = newIdleData;}
 // .......................................................................... //
 void Window::setCallback(const std::function<bool (SDL_Event &)> & newCallback) {callback = newCallback;}
 
-// .......................................................................... //
+// -------------------------------------------------------------------------- //
 
-void Window::mainloop(bool onlyCallback) {
+void Window::mainloop(bool autoClear, bool onlyCallback) {
     bool close = false;
     bool hasCallback = callback ? true : false;
 
@@ -95,9 +92,11 @@ void Window::mainloop(bool onlyCallback) {
             }
         }
 
-        SDL_RenderClear(win_renderer);
+        if (autoClear) {SDL_RenderClear(win_renderer);}
         if (idleFunc) {idleFunc(idleData);}
         SDL_RenderPresent(win_renderer);
+
+        SDL_Delay(1000 / 30);
     }
 
 }

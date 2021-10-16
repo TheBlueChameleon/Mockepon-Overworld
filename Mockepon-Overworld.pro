@@ -12,9 +12,16 @@ LIBS += -lSDL2_ttf
 
 SOURCES += \
         SDL-globals.cpp \
+        animation.cpp \
+        gfxstore.cpp \
         main.cpp \
+        pugixml.cpp \
         window.cpp
 
 HEADERS += \
     SDL-globals.hpp \
+    animation.hpp \
+    gfxstore.hpp \
+    pugiconfig.hpp \
+    pugixml.hpp \
     window.hpp

@@ -6,18 +6,22 @@
 
 // STL
 #include <functional>
+#include <utility>
 
 // SDL
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+
+// local
+#include "SDL-globals.hpp"
 
 // ========================================================================== //
 // Class
 
 class Window {
 private:
-    int width = -1;
-    int height = -1;
+    int win_width = -1;
+    int win_height = -1;
 
     SDL_Window * win = nullptr;
     SDL_Renderer * win_renderer = nullptr;
@@ -32,16 +36,30 @@ private:
 public:
     // ---------------------------------------------------------------------- //
     // CTor, DTor
-    Window(const char * title, int width = 800, int height = 600);
+
+    Window(const char * title = "Window Title", int width = 800, int height = 600);
     ~Window();
 
     // ---------------------------------------------------------------------- //
-    // populate
+    // getters
+
+    SDL_Renderer * getRenderer() const;
+    int getWidth() const;
+    int getHeight() const;
+    std::pair<int, int> getDimension() const;
+
+    // ---------------------------------------------------------------------- //
+    // draw
+
+    void clear();
+
+    void takeSurface();
+    void takeTexture();
 
     void print(const char * text,
                const int x, const int y,
                int width = -1, int height = -1,
-               SDL_Color * color = nullptr,
+               SDL_Color color = color_white,
                TTF_Font * font = nullptr);
 
     // ---------------------------------------------------------------------- //
@@ -50,8 +68,10 @@ public:
     void setCallback(const std::function<bool (SDL_Event &)> & newCallback);
     void setIdleFunc(const std::function<void (void *)> & newIdleFunc);
 
-    void mainloop(bool onlyCallback = false);
+    void mainloop(bool autoClear = false, bool onlyCallback = false);
     void setIdleData(void * newIdleData);
+
+    void update();
 };
 
 #endif // WINDOW_HPP
