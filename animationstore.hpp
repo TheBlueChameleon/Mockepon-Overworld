@@ -43,9 +43,9 @@ public:
 
     void reset();
 
-    void advanceAll();
-
     int addAnimation(const std::string & filename);
+
+    void advanceAll();
 };
 
 #endif // ANIMATIONSTORE_HPP
