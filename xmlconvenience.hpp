@@ -7,6 +7,7 @@
 // STL
 #include <vector>
 #include <string>
+#include <utility>
 
 // PUGI
 #include "pugixml.hpp"
@@ -23,8 +24,12 @@
 // ========================================================================== //
 // proc
 
-pugi::xml_document loadXML(const std::string & filename, const std::string & content = "");
+pugi::xml_document XMLload(const std::string & filename, const std::string & content = "");
 
-const std::vector<std::string> & extractAnimationFrameList(pugi::xml_document & doc);
+std::vector<
+    std::pair<std::string,
+              std::vector<std::pair<std::string, std::string>>
+    >
+> XMLextractAttributeList (pugi::xml_node & node);
 
 #endif // XMLCONVENIENCE_HPP

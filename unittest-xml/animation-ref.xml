@@ -8,7 +8,8 @@
   
   <content value="animation" />
 
-  <animation source="../unittest-xml/animation-sea.xml">
+  <animation>
+    <animation source="../unittest-xml/animation-sea.xml" />
     <frame file="../unittest-gfx/frame01.png" />
     <frame file="../unittest-gfx/frame02.png" />
     <frame file="../unittest-gfx/frame03.png" />

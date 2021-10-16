@@ -21,7 +21,7 @@ using namespace std::string_literals;
 // ========================================================================== //
 // XML convenience
 
-pugi::xml_document loadXML(const std::string & filename, const std::string & content) {
+pugi::xml_document XMLload(const std::string & filename, const std::string & content) {
   /* Loads the document specified by <filename>
    * Performs project and version check
    * Returns XML handle on success
@@ -148,14 +148,29 @@ pugi::xml_document loadXML(const std::string & filename, const std::string & con
 }
 
 // -------------------------------------------------------------------------- //
-const std::vector<std::string> & extractAnimationFrameList(pugi::xml_document & doc) {
-    auto root = doc.child("project");
-    auto nodeAnimation = root.child("animation");
+std::vector<
+    std::pair<std::string,
+              std::vector<std::pair<std::string, std::string>>
+    >
+> XMLextractAttributeList (pugi::xml_node & node) {
+    std::string tag, attrib, value;
+    std::pair<std::string, std::string> element;
+    std::vector<decltype(element)> elements;
+    decltype (XMLextractAttributeList(node)) reVal;
 
-    auto ref = nodeAnimation.attribute("source");
-    if ( ref ) {
-        auto repetitions = nodeAnimation.attribute("repeat").as_int(1);
-        //auto storeID     = AnimationStore_load( ref.value() );
-        //for (auto i=0; i<repetitions; ++i) {addFromStore(storeID);}
+    for (auto subNode = node.first_child(); subNode; subNode = subNode.next_sibling()) {
+        tag = subNode.name();
+        elements.clear();
+
+        for (auto attrIt : subNode.attributes()) {
+            attrib = attrIt.name();
+            value  = attrIt.value();
+            element = std::make_pair(attrib, value);
+            elements.push_back(element);
+        }
+
+        reVal.push_back( std::make_pair(tag, elements) );
     }
+
+    return reVal;
 }
