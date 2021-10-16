@@ -31,6 +31,14 @@ void showIdleFunc(void * data);
 Animation::Animation(GfxStore & gfxStore) :
     gfxStore(gfxStore)
 {}
+// .......................................................................... //
+Animation::Animation(GfxStore & gfxStore, const std::string & filename) :
+    gfxStore(gfxStore)
+{addFrame(filename);}
+// .......................................................................... //
+Animation::Animation(GfxStore & gfxStore, const std::vector<std::string> & filenames) :
+    gfxStore(gfxStore)
+{addFrames(filenames);}
 
 // ========================================================================== //
 // Getter

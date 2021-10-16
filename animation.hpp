@@ -32,6 +32,8 @@ public:
     // CTor, DTor
 
     Animation(GfxStore & gfxStore);
+    Animation(GfxStore & gfxStore, const std::string & filename);
+    Animation(GfxStore & gfxStore, const std::vector<std::string> & filenames);
 
     // ---------------------------------------------------------------------- //
     // getters
