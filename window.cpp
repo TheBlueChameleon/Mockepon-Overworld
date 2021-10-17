@@ -110,11 +110,38 @@ void Window::restore() {CHECK_INIT(); SDL_RestoreWindow(hwin);}
 void Window::update() {CHECK_INIT(); SDL_RenderPresent(win_renderer);}
 
 // ========================================================================== //
-// draw
+// drawing primitives
 
 void Window::clear(bool autoUpdate) {
     CHECK_INIT();
+    SDL_SetRenderDrawColor( win_renderer, 0, 0, 0, 255 );
                      SDL_RenderClear  (win_renderer);
+    if (autoUpdate) {SDL_RenderPresent(win_renderer);}
+}
+// -------------------------------------------------------------------------- //
+void Window::pset(int x, int y, SDL_Color color, bool autoUpdate) {
+    SDL_SetRenderDrawColor( win_renderer, color.r, color.g, color.b, color.a );
+    SDL_RenderDrawPoint( win_renderer, x, y);
+    if (autoUpdate) {SDL_RenderPresent(win_renderer);}
+}
+// .......................................................................... //
+void Window::line(int x1, int y1, int x2, int y2, SDL_Color color, bool autoUpdate) {
+    SDL_SetRenderDrawColor( win_renderer, color.r, color.g, color.b, color.a );
+    SDL_RenderDrawLine(win_renderer, x1, y1, x2, y2);
+    if (autoUpdate) {SDL_RenderPresent(win_renderer);}
+}
+// .......................................................................... //
+void Window::box(int x, int y, int w, int h, SDL_Color color, bool autoUpdate) {
+    SDL_SetRenderDrawColor( win_renderer, color.r, color.g, color.b, color.a );
+    SDL_Rect rect = { x, y, w, h };
+    SDL_RenderDrawRect(win_renderer, &rect);
+    if (autoUpdate) {SDL_RenderPresent(win_renderer);}
+}
+// .......................................................................... //
+void Window::fbox(int x, int y, int w, int h, SDL_Color color, bool autoUpdate) {
+    SDL_SetRenderDrawColor( win_renderer, color.r, color.g, color.b, color.a );
+    SDL_Rect rect = { x, y, w, h };
+    SDL_RenderFillRect(win_renderer, &rect);
     if (autoUpdate) {SDL_RenderPresent(win_renderer);}
 }
 // -------------------------------------------------------------------------- //

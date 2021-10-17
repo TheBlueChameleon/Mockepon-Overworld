@@ -76,9 +76,14 @@ public:
     void update();
 
     // ---------------------------------------------------------------------- //
-    // draw
+    // drawing primitives
 
     void clear(bool autoUpdate = false);
+
+    void pset(int x , int y ,                 SDL_Color color = color_white, bool autoUpdate = false);
+    void line(int x1, int y1, int x2, int y2, SDL_Color color = color_white, bool autoUpdate = false);
+    void  box(int x , int y , int w , int h , SDL_Color color = color_white, bool autoUpdate = false);
+    void fbox(int x , int y , int w , int h , SDL_Color color = color_white, bool autoUpdate = false);
 
     void print(const char * text,
                const int x, const int y,
