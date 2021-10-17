@@ -20,10 +20,9 @@
 
 class Window {
 private:
-    int win_width = -1;
-    int win_height = -1;
+    bool initialized = false;
 
-    SDL_Window * win = nullptr;
+    SDL_Window * hwin = nullptr;
     SDL_Renderer * win_renderer = nullptr;
 
     std::function<bool (SDL_Event &)> callback;
@@ -37,24 +36,34 @@ public:
     // ---------------------------------------------------------------------- //
     // CTor, DTor
 
-    Window(const char * title = "Window Title", int width = 800, int height = 600);
+    Window() = default;
+    Window(const char * title, int width = 800, int height = 600);
     ~Window();
+
+    // ---------------------------------------------------------------------- //
+    // Operators
+
+    Window & operator= (Window && other);       // move assignment
 
     // ---------------------------------------------------------------------- //
     // getters
 
     SDL_Renderer * getRenderer() const;
+
     int getWidth() const;
     int getHeight() const;
     std::pair<int, int> getDimension() const;
 
     // ---------------------------------------------------------------------- //
+    // place, hide and show
+
+    void setPosition (const int x, const int y);
+    void setDimension(const int x, const int y);
+
+    // ---------------------------------------------------------------------- //
     // draw
 
     void clear();
-
-    void takeSurface();
-    void takeTexture();
 
     void print(const char * text,
                const int x, const int y,
@@ -72,7 +81,7 @@ public:
     void setIdleFunc(const std::function<void (void *)> & newIdleFunc);
     void setIdleData(void * newIdleData);
 
-    void mainloop(int fps = 30, bool autoClear = false, bool onlyCallback = false);
+    void mainloop(int fps = 30, bool autoClear = false);
 
 };
 

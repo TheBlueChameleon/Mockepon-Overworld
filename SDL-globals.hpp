@@ -18,7 +18,6 @@ void freeGlobals();
 // ========================================================================== //
 // colors
 
-//extern SDL_Color color_white, color_black, color_red, color_green, color_blue, color_yellow, color_purple, color_cyan;
 constexpr SDL_Color
     color_white  = {255, 255, 255,   0},
     color_black  = {  0,   0,   0,   0},
