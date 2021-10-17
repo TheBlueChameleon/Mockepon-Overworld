@@ -22,15 +22,15 @@ class Window {
 private:
     bool initialized = false;
 
-    SDL_Window * hwin = nullptr;
+    SDL_Window   * hwin = nullptr;
     SDL_Renderer * win_renderer = nullptr;
 
     std::function<bool (SDL_Event &)> callback;
         /* callback functions should return true if the received event should
          * trigger leaving the main loop. */
 
-    std::function<void (void * data)> idleFunc;
     void * idleData = nullptr;
+    std::function<void (void * data)> idleFunc;
 
 public:
     // ---------------------------------------------------------------------- //
@@ -54,11 +54,15 @@ public:
     int getHeight() const;
     std::pair<int, int> getDimension() const;
 
+    int getPosX() const;
+    int getPosY() const;
+    std::pair<int, int> getPosition() const;
+
     // ---------------------------------------------------------------------- //
     // place, hide and show
 
+    void setDimension(const int w, const int h);
     void setPosition (const int x, const int y);
-    void setDimension(const int x, const int y);
 
     // ---------------------------------------------------------------------- //
     // draw
@@ -81,7 +85,7 @@ public:
     void setIdleFunc(const std::function<void (void *)> & newIdleFunc);
     void setIdleData(void * newIdleData);
 
-    void mainloop(int fps = 30, bool autoClear = false);
+    void mainloop(int fps = 30, bool autoClear = false, bool onlyCallbackEvents = false);
 
 };
 

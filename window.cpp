@@ -73,13 +73,23 @@ std::pair<int, int> Window::getDimension() const {
     return std::make_pair(w, h);
 }
 // -------------------------------------------------------------------------- //
+int Window::getPosX() const {return getPosition().first;}
+// .......................................................................... //
+int Window::getPosY() const {return getPosition().second;}
+// .......................................................................... //
+std::pair<int, int> Window::getPosition() const {
+    int x, y;
+    SDL_GetWindowPosition(hwin, &x, &y);
+    return std::make_pair(x, y);
+}
+// -------------------------------------------------------------------------- //
 
 // ========================================================================== //
 // place, hide and show
 
-void Window::setPosition (const int x, const int y) {SDL_SetWindowPosition(hwin, x, y);}
+void Window::setDimension(const int w, const int h) {SDL_SetWindowSize    (hwin, w, h);}
 // .......................................................................... //
-void Window::setDimension(const int x, const int y) {SDL_SetWindowSize    (hwin, x, y);}
+void Window::setPosition (const int x, const int y) {SDL_SetWindowPosition(hwin, x, y);}
 // .......................................................................... //
 
 // ========================================================================== //
@@ -121,7 +131,7 @@ void Window::setIdleData(void * newIdleData) {CHECK_INIT(); idleData = newIdleDa
 
 // -------------------------------------------------------------------------- //
 
-void Window::mainloop(int fps, bool autoClear) {
+void Window::mainloop(int fps, bool autoClear, bool onlyCallbackEvents) {
     CHECK_INIT();
 
     bool close = false;
@@ -131,12 +141,13 @@ void Window::mainloop(int fps, bool autoClear) {
 
     while (!close) {
         while (SDL_PollEvent(&event)) {
-            if (hasCallback)            {callback(event);}
-            if (event.type == SDL_QUIT) {close = true;}
+            if ( hasCallback)                                  {close = callback(event); break;}
+            if (!onlyCallbackEvents && event.type == SDL_QUIT) {close = true;}
         }
 
         if (autoClear) {SDL_RenderClear(win_renderer);}
         if (idleFunc) {idleFunc(idleData);}
+
         SDL_RenderPresent(win_renderer);
 
         SDL_Delay(1000 / fps);
