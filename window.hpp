@@ -48,6 +48,8 @@ public:
     // ---------------------------------------------------------------------- //
     // getters
 
+    const char * getTitle();
+
     int getWidth() const;
     int getHeight() const;
     std::pair<int, int> getDimension() const;
@@ -62,6 +64,8 @@ public:
 
     // ---------------------------------------------------------------------- //
     // place, hide and show
+
+    void setTitle(const char * title);
 
     void setDimension(const int w, const int h);
     void setPosition (const int x, const int y);

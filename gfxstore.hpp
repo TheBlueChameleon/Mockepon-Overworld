@@ -25,6 +25,8 @@
 
 class GfxStore {
 private:
+    bool initialized = false;
+
     std::vector<std::string  >       filenames;
     std::vector<SDL_Texture *>       textures;
     std::vector<std::pair<int, int>> dimensions;
@@ -41,12 +43,12 @@ public:
     // ---------------------------------------------------------------------- //
     // getters
 
-          Window &      getWin() const;
+          Window &      getWin () const;
     int                 getSize() const;
     const std::string & getFilename(const int ID) const;
-          SDL_Texture * getTexture(const int ID) const;
+          SDL_Texture * getTexture (const int ID) const;
 
-    std::pair<int, int> getImageDimensions(const int ID);
+    std::pair<int, int> getImageDimensions(const int ID) const;
 
     // ---------------------------------------------------------------------- //
     // setters and changers

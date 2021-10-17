@@ -28,7 +28,9 @@ GfxStore::GfxStore(Window & win) :
     win(win)
 {}
 // .......................................................................... //
-GfxStore::~GfxStore() {reset();}
+GfxStore::~GfxStore() {
+    reset();
+}
 
 // ========================================================================== //
 // getters
@@ -47,7 +49,7 @@ SDL_Texture * GfxStore::getTexture(const int ID) const {
     return textures[ID];
 }
 // .......................................................................... //
-std::pair<int, int> GfxStore::getImageDimensions(const int ID) {
+std::pair<int, int> GfxStore::getImageDimensions(const int ID) const {
     CHECK_GFX_INDEX(ID);
     return dimensions[ID];
 }

@@ -57,10 +57,12 @@ Window & Window::operator=(Window && other) {
     return *this;
 }
 
+
+
 // ========================================================================== //
 // getters
 
-SDL_Renderer * Window::getRenderer() const {CHECK_INIT(); return win_renderer;}
+const char * Window::getTitle() {CHECK_INIT(); return SDL_GetWindowTitle(hwin);}
 // -------------------------------------------------------------------------- //
 int Window::getWidth () const {CHECK_INIT(); return SDL_GetWindowSurface(hwin)->w;}
 // .......................................................................... //
@@ -89,10 +91,14 @@ std::pair<int, int> Window::getPosition() const {
 // -------------------------------------------------------------------------- //
 Uint32 Window::GetWindowFlags() const {CHECK_INIT(); return SDL_GetWindowFlags(hwin);}
 // -------------------------------------------------------------------------- //
+SDL_Renderer * Window::getRenderer() const {CHECK_INIT(); return win_renderer;}
+// -------------------------------------------------------------------------- //
 
 // ========================================================================== //
 // place, hide and show
 
+void Window::setTitle(const char * title) {CHECK_INIT(); SDL_SetWindowTitle(hwin, title);}
+// -------------------------------------------------------------------------- //
 void Window::setDimension(const int w, const int h) {CHECK_INIT(); SDL_SetWindowSize    (hwin, w, h);}
 // .......................................................................... //
 void Window::setPosition (const int x, const int y) {CHECK_INIT(); SDL_SetWindowPosition(hwin, x, y);}
