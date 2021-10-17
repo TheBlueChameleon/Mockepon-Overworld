@@ -62,39 +62,62 @@ Window & Window::operator=(Window && other) {
 
 SDL_Renderer * Window::getRenderer() const {CHECK_INIT(); return win_renderer;}
 // -------------------------------------------------------------------------- //
-int Window::getWidth() const {return SDL_GetWindowSurface(hwin)->w;}
+int Window::getWidth () const {CHECK_INIT(); return SDL_GetWindowSurface(hwin)->w;}
 // .......................................................................... //
-int Window::getHeight() const {return SDL_GetWindowSurface(hwin)->h;}
+int Window::getHeight() const {CHECK_INIT(); return SDL_GetWindowSurface(hwin)->h;}
 // .......................................................................... //
 std::pair<int, int> Window::getDimension() const {
+    CHECK_INIT();
+
     int w, h;
     SDL_GetWindowSize(hwin, &w, &h);
 
     return std::make_pair(w, h);
 }
 // -------------------------------------------------------------------------- //
-int Window::getPosX() const {return getPosition().first;}
+int Window::getPosX() const {CHECK_INIT(); return getPosition().first;}
 // .......................................................................... //
-int Window::getPosY() const {return getPosition().second;}
+int Window::getPosY() const {CHECK_INIT(); return getPosition().second;}
 // .......................................................................... //
 std::pair<int, int> Window::getPosition() const {
+    CHECK_INIT();
+
     int x, y;
     SDL_GetWindowPosition(hwin, &x, &y);
     return std::make_pair(x, y);
 }
 // -------------------------------------------------------------------------- //
+Uint32 Window::GetWindowFlags() const {CHECK_INIT(); return SDL_GetWindowFlags(hwin);}
+// -------------------------------------------------------------------------- //
 
 // ========================================================================== //
 // place, hide and show
 
-void Window::setDimension(const int w, const int h) {SDL_SetWindowSize    (hwin, w, h);}
+void Window::setDimension(const int w, const int h) {CHECK_INIT(); SDL_SetWindowSize    (hwin, w, h);}
 // .......................................................................... //
-void Window::setPosition (const int x, const int y) {SDL_SetWindowPosition(hwin, x, y);}
+void Window::setPosition (const int x, const int y) {CHECK_INIT(); SDL_SetWindowPosition(hwin, x, y);}
+// -------------------------------------------------------------------------- //
+void Window::hide() {CHECK_INIT(); SDL_HideWindow(hwin);}
 // .......................................................................... //
+void Window::show() {CHECK_INIT(); SDL_ShowWindow(hwin);}
+// -------------------------------------------------------------------------- //
+void Window::minimize() {CHECK_INIT(); SDL_MinimizeWindow(hwin);}
+// .......................................................................... //
+void Window::maximize() {CHECK_INIT(); SDL_MaximizeWindow(hwin);}
+// .......................................................................... //
+void Window::restore() {CHECK_INIT(); SDL_RestoreWindow(hwin);}
+// -------------------------------------------------------------------------- //
+void Window::update() {CHECK_INIT(); SDL_RenderPresent(win_renderer);}
 
 // ========================================================================== //
 // draw
 
+void Window::clear(bool autoUpdate) {
+    CHECK_INIT();
+                     SDL_RenderClear  (win_renderer);
+    if (autoUpdate) {SDL_RenderPresent(win_renderer);}
+}
+// -------------------------------------------------------------------------- //
 void Window::print(const char * text,
                    const int x, const int y,
                    int width, int height,

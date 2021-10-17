@@ -48,8 +48,6 @@ public:
     // ---------------------------------------------------------------------- //
     // getters
 
-    SDL_Renderer * getRenderer() const;
-
     int getWidth() const;
     int getHeight() const;
     std::pair<int, int> getDimension() const;
@@ -58,24 +56,35 @@ public:
     int getPosY() const;
     std::pair<int, int> getPosition() const;
 
+    Uint32 GetWindowFlags() const;
+
+    SDL_Renderer * getRenderer() const;
+
     // ---------------------------------------------------------------------- //
     // place, hide and show
 
     void setDimension(const int w, const int h);
     void setPosition (const int x, const int y);
 
+    void hide();
+    void show();
+
+    void minimize();
+    void maximize();
+    void restore();
+
+    void update();
+
     // ---------------------------------------------------------------------- //
     // draw
 
-    void clear();
+    void clear(bool autoUpdate = false);
 
     void print(const char * text,
                const int x, const int y,
                int width = -1, int height = -1,
                SDL_Color color = color_white,
                TTF_Font * font = nullptr);
-
-    void update();
 
     // ---------------------------------------------------------------------- //
     // interactions
