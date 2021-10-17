@@ -49,6 +49,8 @@ Animation::Animation(GfxStore & gfxStore, const std::vector<std::string> & filen
 
 unsigned int Animation::getSize() const {return frames.size();}
 // -------------------------------------------------------------------------- //
+const std::vector<int> & Animation::getFrames() const {return frames;}
+// -------------------------------------------------------------------------- //
 unsigned int Animation::getCurrentFrameID() const {return currentFrame;}
 // .......................................................................... //
 SDL_Texture * Animation::getCurrentFrameTexture() const {return gfxStore.getTexture(currentFrame);}

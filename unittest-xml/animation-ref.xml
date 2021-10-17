@@ -8,19 +8,8 @@
   
   <content value="animation" />
 
-  <animation>
-    <animation source="../unittest-xml/animation-sea.xml" />
-    <frame file="../unittest-gfx/frame01.png" />
-    <frame file="../unittest-gfx/frame02.png" />
-    <frame file="../unittest-gfx/frame03.png" />
-    <frame file="../unittest-gfx/frame04.png" />
-    <frame file="nonexistent file will not throw an error due to implicit repeat=0" repeat="" />
-    <frame file="../unittest-gfx/frame05.png" />
-    <frame file="../unittest-gfx/frame06.png" file="this should be ignored" />
-    <frame file="../unittest-gfx/frame07.png" />
-    <new meaning="This is to test whether the system is tolerant towards unforseen tags in the list" />
-    <frame file="../unittest-gfx/frame08.png" />
-    <frame file="../unittest-gfx/frame09.png" />
-    <frame file="../unittest-gfx/frame10.png" repeat="2" />
+  <animation file="../unittest-xml/animation-pure.xml" repeat="5">
+    <animation file="../unittest-xml/animation-sea.xml" repeat="10" />
   </animation>
+
 </project>

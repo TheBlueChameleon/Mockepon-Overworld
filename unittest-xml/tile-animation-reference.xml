@@ -12,5 +12,5 @@
     <name value="sea" />
   </properties>
 
-  <animation source="animation-sea.xml" />
+  <animation file="animation-sea.xml" />
 </project>

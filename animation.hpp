@@ -39,7 +39,10 @@ public:
     // getters
 
     unsigned int getSize() const;
-    unsigned int getCurrentFrameID() const;
+
+    const std::vector<int> & getFrames() const;
+
+    unsigned int  getCurrentFrameID() const;
     SDL_Texture * getCurrentFrameTexture() const;
 
     // ---------------------------------------------------------------------- //
@@ -60,6 +63,7 @@ public:
 
     void put (int x = 0, int y = 0);
     void show(int x = 0, int y = 0, int fps = 60);
+    const std::vector<int> & getframes() const;
 };
 
 #endif // ANIMATION_HPP
