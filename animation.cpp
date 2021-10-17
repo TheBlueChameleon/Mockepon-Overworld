@@ -4,15 +4,19 @@
 // STL
 #include <string>
 using namespace std::string_literals;
+#include <filesystem>
+namespace fs = std::filesystem;
 
 // local
 #include "animation.hpp"
-#include "xmlconvenience.hpp"
+#include "convenienceprocs.hpp"
 
 // ========================================================================== //
 // local macro
 
 #define THROWTEXT(msg) ("RUNTIME EXCEPTION IN "s + (__PRETTY_FUNCTION__) + "\n"s + msg)
+
+#define CHECK_FILE_EXISTS(filename) {if (!fs::exists(filename)) {throw std::runtime_error(THROWTEXT("  file not found: '"s + filename + "'"));}}
 
 // ========================================================================== //
 // local definitions
@@ -58,7 +62,7 @@ void Animation::reset() {
 }
 // -------------------------------------------------------------------------- //
 void Animation::addFrame(int ID) {
-    if ( ID < 0 || ID >= gfxStore.getSize() ) {
+    if ( (ID < 0) || (ID >= gfxStore.getSize()) ) {
         throw std::out_of_range(THROWTEXT("  Invalid GfxStore ID: "s + std::to_string(ID)));
     }
 
@@ -81,6 +85,7 @@ void Animation::addFrame(int ID) {
 }
 // .......................................................................... //
 void Animation::addFrame(const std::string & filename) {
+    CHECK_FILE_EXISTS(filename);
     addFrame( gfxStore.addFrame(filename) );
 }
 // -------------------------------------------------------------------------- //
@@ -104,7 +109,7 @@ void Animation::put(int x, int y) {
     SDL_Rect dest = {x, y, dimension.first, dimension.second};
 
     SDL_RenderCopy(gfxStore.getWin().getRenderer(),
-                   gfxStore.getTexture(currentFrame),
+                   gfxStore.getTexture( frames[currentFrame] ),
                    NULL, &dest);
 }
 // .......................................................................... //

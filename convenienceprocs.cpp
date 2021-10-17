@@ -11,7 +11,7 @@ using namespace std::string_literals;
 #include "pugixml.hpp"
 
 // own
-#include "xmlconvenience.hpp"
+#include "convenienceprocs.hpp"
 
 // ========================================================================== //
 // local macro

@@ -4,6 +4,8 @@
 // STL
 #include <string>
 using namespace std::string_literals;
+#include <filesystem>
+namespace fs = std::filesystem;
 
 #include <algorithm>
 
@@ -17,6 +19,7 @@ using namespace std::string_literals;
 
 #define CHECK_GFX_INDEX(ID) {if ( (ID < 0) || (ID >= this->getSize()) ) {throw std::out_of_range(THROWTEXT("  Invalid GfxStore ID: "s + std::to_string(ID)));}}
 
+#define CHECK_FILE_EXISTS(filename) {if (!fs::exists(filename)) {throw std::runtime_error(THROWTEXT("  file not found: '"s + filename + "'"));}}
 
 // ========================================================================== //
 // CTor, DTor
@@ -57,6 +60,8 @@ void GfxStore::reset() {
 }
 // .......................................................................... //
 int GfxStore::addFrame(const std::string & filename) {
+    CHECK_FILE_EXISTS(filename);
+
     auto searchIterator = std::find( filenames.begin(), filenames.end(), filename );
     if (searchIterator != filenames.end() ) {
         return std::distance(filenames.begin(), searchIterator);

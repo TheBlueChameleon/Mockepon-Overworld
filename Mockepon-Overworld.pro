@@ -14,21 +14,21 @@ SOURCES += \
         SDL-globals.cpp \
         animation.cpp \
         animationstore.cpp \
+        convenienceprocs.cpp \
         gfxstore.cpp \
         main.cpp \
         pugixml.cpp \
-        window.cpp \
-        xmlconvenience.cpp
+        window.cpp
 
 HEADERS += \
     SDL-globals.hpp \
     animation.hpp \
     animationstore.hpp \
+    convenienceprocs.hpp \
     gfxstore.hpp \
     pugiconfig.hpp \
     pugixml.hpp \
-    window.hpp \
-    xmlconvenience.hpp
+    window.hpp
 
 DISTFILES += \
     unittest-xml/animation-pure.xml \

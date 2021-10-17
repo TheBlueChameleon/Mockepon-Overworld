@@ -38,12 +38,16 @@ public:
 
     unsigned int getSize() const;
 
+    int getAnimationID(const std::string & filename) const;
+
+    Animation & getAnimation(const unsigned int ID);
+
     // ---------------------------------------------------------------------- //
     // setters and changers
 
     void reset();
 
-    int addAnimation(const std::string & filename);
+    int  addAnimation(const std::string & filename);
 
     void advanceAll();
 };
